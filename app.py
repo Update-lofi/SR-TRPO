@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# --- Модели БД ---
+# Модели БД 
 class CardSet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -26,7 +26,7 @@ class Card(db.Model):
 with app.app_context():
     db.create_all()
 
-# --- Маршруты ---
+# Маршруты
 @app.route('/')
 def index():
     search_query = request.args.get('search', '')
