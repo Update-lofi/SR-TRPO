@@ -31,8 +31,13 @@ def test_search_set(client):
     client.post('/set/add', data=dict(title='Математика', description='Formulas'))
     
     rv = client.get('/?search=Англ')
-    assert b'Английский' in rv.data
-    assert b'Математика'.decode('utf-8') not in rv.data.decode('utf-8') # Проверяем отсутствие
+    
+    # Декодируем байтовый ответ сервера в обычную текстовую строку (UTF-8)
+    response_text = rv.data.decode('utf-8')
+    
+    # Ищем русские слова как обычные строки
+    assert 'Английский' in response_text
+    assert 'Математика' not in response_text
 
 # 4. Тест обработки ошибки — 404 при обращении к несуществующему ID
 def test_404_on_invalid_id(client):
@@ -42,7 +47,11 @@ def test_404_on_invalid_id(client):
 # 5. Тест на корректность данных — проверка валидации (отклоняет пустое поле title)
 def test_validation_empty_field(client):
     rv = client.post('/set/add', data=dict(title='', description='Без названия'), follow_redirects=True)
-    assert b'Название обязательно!' in rv.data
+    
+    # Здесь тоже декодируем ответ, чтобы проверить русскую ошибку
+    response_text = rv.data.decode('utf-8')
+    assert 'Название обязательно!' in response_text
+    
     with app.app_context():
         card_set = CardSet.query.first()
         assert card_set is None # В БД ничего не должно добавиться
