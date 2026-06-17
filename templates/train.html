@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Тренировка: {{ card_set.title }}</h2>
+<form method="POST">
+    {% for card in cards %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ card.question }}</h5>
+            <input type="text" name="answer_{{ card.id }}" class="form-control" placeholder="Ваш ответ" required>
+        </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Проверить ответы</button>
+</form>
+{% endblock %}

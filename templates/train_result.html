@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Результаты тренировки</h2>
+<div class="alert alert-info">
+    Вы ответили правильно на {{ correct }} из {{ total }} вопросов.
+    <br><strong>Ваш результат: {{ score }}%</strong>
+</div>
+<a href="/set/{{ card_set.id }}/train" class="btn btn-primary">Попробовать еще раз</a>
+<a href="/" class="btn btn-secondary">На главную</a>
+{% endblock %}

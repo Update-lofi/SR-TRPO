@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ card_set.title }}</h2>
+<p>{{ card_set.description }}</p>
+
+<h4>Карточки в наборе:</h4>
+<ul class="list-group mb-4">
+    {% for card in card_set.cards %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span><strong>В:</strong> {{ card.question }} | <strong>О:</strong> {{ card.answer }}</span>
+    </li>
+    {% else %}
+    <li class="list-group-item">Пока нет карточек.</li>
+    {% endfor %}
+</ul>
+
+<h4>Добавить карточку</h4>
+<form method="POST" action="/set/{{ card_set.id }}/card/add">
+    <div class="row">
+        <div class="col">
+            <input type="text" name="question" class="form-control" placeholder="Вопрос" required>
+        </div>
+        <div class="col">
+            <input type="text" name="answer" class="form-control" placeholder="Ответ" required>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success">Добавить</button>
+        </div>
+    </div>
+</form>
+<br>
+<a href="/" class="btn btn-secondary mt-3">Назад к наборам</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Создать набор</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label>Название набора</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Описание</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="/" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

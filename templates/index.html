@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Наборы карточек</h2>
+<form class="d-flex mb-4" method="GET" action="/">
+    <input class="form-control me-2" type="search" name="search" placeholder="Поиск наборов..." value="{{ search_query }}">
+    <button class="btn btn-outline-success" type="submit">Поиск</button>
+</form>
+
+<a href="/set/add" class="btn btn-primary mb-3">Создать новый набор</a>
+
+<div class="row">
+    {% for set in sets %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ set.title }}</h5>
+                <p class="card-text">{{ set.description }}</p>
+                <a href="/set/{{ set.id }}" class="btn btn-info btn-sm">Открыть</a>
+                <a href="/set/{{ set.id }}/train" class="btn btn-success btn-sm">Тренировка</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Наборы не найдены.</p>
+    {% endfor %}
+</div>
+{% endblock %}
